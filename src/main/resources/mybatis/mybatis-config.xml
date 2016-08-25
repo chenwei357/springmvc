@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	 <!-- 配置延迟加载 -->
+    <settings>
+    	<!-- 是否允许延迟加载 -->
+        <setting name="lazyLoadingEnabled" value="false"/>
+        <!-- 关闭积极加载 -->
+        <setting name="aggressiveLazyLoading" value="true"/>
+        <!-- 开启二级缓存
+        <setting name="cacheEnabled" value="true" /> -->
+    </settings>
+	<typeAliases>
+		<typeAlias type="com.jxufe.entity.User" alias="User"/>
+		<typeAlias type="com.jxufe.entity.Category" alias="Category"/>
+		<typeAlias type="com.jxufe.entity.CategorySecond" alias="CategorySecond"/>
+		<typeAlias type="com.jxufe.entity.Product" alias="Product" />
+		<typeAlias type="com.jxufe.entity.Order" alias="Orders" />
+		<typeAlias type="com.jxufe.entity.OrderItem" alias="OrdersItem" />
+	</typeAliases>
+	
+</configuration>

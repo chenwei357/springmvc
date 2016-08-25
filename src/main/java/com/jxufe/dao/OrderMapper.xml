@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jxufe.dao.OrderMapper">
+
+	<resultMap id="OrderMap" type="Orders">
+		<id column="oid" property="oid" />
+		<result column="total" property="total" />
+		<result column="order_time" property="orderTime" />
+		<result column="state" property="state" />
+		<result column="name" property="name" />
+		<result column="phone" property="phone" />
+		<result column="addr" property="addr" />
+		
+		<collection property="orderItems" ofType="OrdersItem"
+			select="getOrderItems" column="oid" ></collection>
+	</resultMap>
+
+
+	<insert id="addOrder" parameterType="Orders">
+		<selectKey keyProperty="oid" order="AFTER" resultType="int">
+			select LAST_INSERT_ID()
+		</selectKey>
+		insert into orders(total,order_time,state,name,phone,addr,uid)
+		values (#{total},#{orderTime},#{state},#{name},#{phone},#{addr},#{user.uid})
+	</insert>
+	
+	<insert id="addOrderItem" parameterType="OrdersItem">
+		insert into orderitem(count,subtotal,pid,oid) values(#{count},#{subtotal},#{product.pid},#{order.oid})
+	</insert>
+	
+	<select id="findCountByUid" parameterType="int" resultType="int">
+		select count(1) from orders where uid = #{uid}
+	</select>
+	
+	<select id="findPageByUid" parameterType="int" resultMap="OrderMap">
+		select oid,total,order_time orderTime,state,name,phone,addr from orders
+		where uid = #{0} limit #{1},#{2}
+	</select>
+	
+	<select id="getOrderItems" parameterType="int" resultType="OrdersItem">
+		select itemid itemId,count,subtotal,pid,oid from orderitem where oid = #{oid}
+	</select>
+	
+</mapper>

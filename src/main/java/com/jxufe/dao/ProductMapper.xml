@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jxufe.dao.ProductMapper">
+	<select id="findHot" resultType="Product">
+		select * from product where is_hot = 1 order by pdate desc limit 0,10
+	</select>
+	
+	<select id="findNew" resultType="Product">
+		select * from product order by pdate desc limit 0,10
+	</select>
+	
+	<select id="findById" parameterType="int" resultType="Product">
+		select pid,pname,market_price marketPrice,shop_price shopPrice,image,pdesc,is_hot isHot,pdate,csid from product where pid = #{pid}
+	</select>
+	
+	<!-- 通过cid找到总记录数 -->
+	<select id="findCountByCid" parameterType="int" resultType="int">
+		select count(1) from product where csid in (select csid from categorysecond where cid = #{cid})
+	</select>
+	
+	<select id="findByPageAndCid" parameterType="int" resultType="Product" >
+		select pid,pname,market_price marketPrice,shop_price shopPrice,image,pdesc,is_hot isHot,pdate,csid
+		from product where csid in (select csid from categorysecond where cid = #{0}) limit #{1},#{2}
+	</select>
+	
+	<!-- 通过csid找到总记录数 -->
+	<select id="findCountByCsid" parameterType="int" resultType="int">
+		select count(1) from product where csid = #{csid}
+	</select>
+	
+	<select id="findByPageAndCsid" parameterType="int" resultType="Product" >
+		select pid,pname,market_price marketPrice,shop_price shopPrice,image,pdesc,is_hot isHot,pdate,csid
+		from product where csid = #{0} limit #{1},#{2}
+	</select>
+	
+</mapper>

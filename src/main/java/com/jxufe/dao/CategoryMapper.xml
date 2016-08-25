@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jxufe.dao.CategoryMapper">
+
+		<resultMap type="Category" id="categoryMap">
+		<!-- 配置 要映射的订单信息-->
+		<id column="cid" property="cid" />
+		<result column="cname" property="cname" />
+		<!-- 
+			select:他是一条查询语句，指代statement的id，可以跨配置文件引用（命名空间+id名）
+			column:关联信息的列名
+		 -->
+		<collection property="categorySeconds" ofType="CategorySecond"
+			select="getCategorySecond" column="cid" ></collection>
+		</resultMap>
+	
+	<!-- <resultMap id="categoryMap" type="Category">
+		<collection 
+		column="cid" property="categorySeconds" select="getCategorySecond">
+		</collection>
+	</resultMap> -->
+
+	<select id="findAll" resultMap="categoryMap">
+		select * from category
+	</select>
+	<select id="getCategorySecond" resultType="CategorySecond">
+		select cid, csid,csname from categorysecond where cid = #{cid}
+	</select>
+	
+</mapper>

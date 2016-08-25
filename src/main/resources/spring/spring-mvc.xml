@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/mvc  
+    http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+    
+    <!-- 启用扫描注解 -->
+    <context:component-scan base-package="com.jxufe.*"></context:component-scan>
+	<!-- 映射器配置
+	<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
+	 -->
+	<!-- 适配器配置
+	<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
+	 -->
+	 <!-- 默认的注解驱动，里面有很多参数绑定的方法 -->
+	<mvc:annotation-driven/>
+	
+	<!-- 静态资源 -->
+	<mvc:default-servlet-handler/>
+	<!-- 拦截器 -->
+	<!-- <mvc:interceptors>
+	如果有配置多个拦截器，按照顺序执行
+		<mvc:interceptor>
+		拦截的路径：/**表示所有的url包括子url
+			<mvc:mapping path="/**"/>
+			<bean>
+				
+			</bean>
+		</mvc:interceptor>
+		</mvc:interceptors> -->
+	<!--	<mvc:interceptor>
+		 拦截的路径：/**表示所有的url包括子url 
+			<mvc:mapping path="/**"/>
+			<bean class="com.etc.interceptor.Interceptor2"></bean>
+		</mvc:interceptor>
+		-->
+	
+	
+	<!-- 试图解析器配置 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    	<property name="prefix" value="/WEB-INF/jsp/"></property>
+    	<property name="suffix" value=".jsp"></property>
+    </bean>
+</beans>
