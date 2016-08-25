@@ -9,5 +9,7 @@ public interface OrderService {
 
 	public Page<Order> findByUid(int uid, int pageNo);
 
+	public Order findByOid(int oid);
+
 	
 }

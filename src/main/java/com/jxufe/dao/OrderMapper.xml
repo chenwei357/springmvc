@@ -43,4 +43,9 @@
 		select itemid itemId,count,subtotal,pid,oid from orderitem where oid = #{oid}
 	</select>
 	
+	<select id="findByOid" parameterType="int" resultType="Orders">
+		select oid,total,order_time orderTime,state,name,phone,addr,uid from orders
+		where oid = #{oid}
+	</select>
+	
 </mapper>

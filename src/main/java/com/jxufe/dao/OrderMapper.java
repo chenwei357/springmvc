@@ -11,4 +11,5 @@ public interface OrderMapper {
 	public void addOrderItem(OrderItem orderItem);
 	public int findCountByUid(int uid);
 	public List<Order> findPageByUid(int uid, int begin, int count);
+	public Order findByOid(int oid);
 }

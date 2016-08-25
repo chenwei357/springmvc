@@ -1,6 +1,7 @@
 package com.jxufe.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,8 +13,10 @@ import com.jxufe.entity.Cart;
 import com.jxufe.entity.CartItem;
 import com.jxufe.entity.Order;
 import com.jxufe.entity.OrderItem;
+import com.jxufe.entity.Product;
 import com.jxufe.entity.User;
 import com.jxufe.service.OrderService;
+import com.jxufe.service.ProductService;
 import com.jxufe.utils.Page;
 
 @Controller
@@ -22,6 +25,8 @@ public class OrderController {
 
 	@Autowired
 	private OrderService orderService;
+	@Autowired
+	private ProductService productService;
 	
 	@RequestMapping("/save")
 	public String save(HttpServletRequest request){
@@ -64,18 +69,55 @@ public class OrderController {
 		return "order";
 	}
 	
+	/**
+	* 方法名: findMyOrder
+	* 方法作用: 查询我的订单
+	* 创建人：Jxufe Chenwei
+	* 创建时间：2016年8月26日 上午12:14:36   
+	* @param @param request
+	* @param @param pageNo
+	* @param @param page
+	* @param @return    
+	* 返回值类型： String    
+	* @throws
+	*/
 	@RequestMapping("myOrder")
 	public String findMyOrder(HttpServletRequest request,int pageNo,Page<Order> page){
 		User user = (User) request.getSession().getAttribute("User");
 		//根据用户的id进行查询
 		//调用service
 		page = orderService.findByUid(user.getUid(),pageNo);
-		
-		Cart cart = (Cart) request.getSession().getAttribute("cart");
-		
+		List<Order> list2 = page.getList();
+		//将商品信息加到orderItem中
+		for(int i = 0; i < list2.size(); i++ ){
+			List<OrderItem> list1 = page.getList().get(i).getOrderItems();	
+			for(int j = 0; j < list1.size(); j++ ){
+				Product product = productService.findById(list1.get(j).getPid());
+				list1.get(j).setProduct(product);
+			}
+		}
 		
 		request.setAttribute("list", page);
 		return "orderList";
+	}
+	
+	@RequestMapping("findOrder")
+	public String findOrder(HttpServletRequest request,int oid){
+		Order order = orderService.findByOid(oid);
+		Cart cart = (Cart) request.getSession().getAttribute("cart");
+		User user = (User) request.getSession().getAttribute("User");
+		// 订单所属的用户
+		order.setUser(user);
+
+		// 设置订单中的订单项
+		
+		
+		
+		System.out.println("---------------------------------------");
+		System.out.println(order);
+		
+		request.setAttribute("orders", order);
+		return "order";
 	}
 	
 }

@@ -68,5 +68,19 @@ public class OrderServiceImpl implements OrderService{
 		
 		return page;
 	}
+
+	/**
+	* 方法名: findByOid
+	* 方法作用: 通过oid查找订单order
+	* 创建人:Chenwei
+	* 创建时间：2016年8月26日 上午12:21:53   
+	* @param oid
+	* @return
+	* @see com.jxufe.service.OrderService#findByOid(int) 
+	*/
+	public Order findByOid(int oid) {
+
+		return orderMapper.findByOid(oid);
+	}
 	
 }

@@ -15,10 +15,18 @@ public class Order implements Serializable{
 	private String name;
 	private String phone;
 	private String addr;
+	private int uid;
 	//订单所属用户
 	private User user;
 	//订单中所属的多个订单项
 	private List<OrderItem> orderItems = new ArrayList<OrderItem>();
+	
+	public int getUid() {
+		return uid;
+	}
+	public void setUid(int uid) {
+		this.uid = uid;
+	}
 	public int getOid() {
 		return oid;
 	}
@@ -72,6 +80,12 @@ public class Order implements Serializable{
 	}
 	public void setOrderItems(List<OrderItem> orderItems) {
 		this.orderItems = orderItems;
+	}
+	@Override
+	public String toString() {
+		return "Order [oid=" + oid + ", total=" + total + ", orderTime=" + orderTime + ", state=" + state + ", name="
+				+ name + ", phone=" + phone + ", addr=" + addr + ", uid=" + uid + ", user=" + user + ", orderItems="
+				+ orderItems + "]";
 	}
 	
 }
