@@ -39,7 +39,7 @@
 		where uid = #{0} limit #{1},#{2}
 	</select>
 	
-	<select id="getOrderItems" parameterType="int" resultType="OrdersItem">
+	<select id="t" parameterType="int" resultType="OrdersItem">
 		select itemid itemId,count,subtotal,pid,oid from orderitem where oid = #{oid}
 	</select>
 	

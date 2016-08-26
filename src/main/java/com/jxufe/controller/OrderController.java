@@ -104,17 +104,18 @@ public class OrderController {
 	@RequestMapping("findOrder")
 	public String findOrder(HttpServletRequest request,int oid){
 		Order order = orderService.findByOid(oid);
-		Cart cart = (Cart) request.getSession().getAttribute("cart");
 		User user = (User) request.getSession().getAttribute("User");
 		// 订单所属的用户
 		order.setUser(user);
 
 		// 设置订单中的订单项
 		
-		
-		
-		System.out.println("---------------------------------------");
-		System.out.println(order);
+		List<OrderItem> list = orderService.getOrderItems(oid);
+		for(int i = 0 ; i < list.size() ; i++ ){
+			Product product = productService.findById(list.get(i).getPid());
+			list.get(i).setProduct(product);
+		}
+		order.setOrderItems(list);
 		
 		request.setAttribute("orders", order);
 		return "order";

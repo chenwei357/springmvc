@@ -83,4 +83,9 @@ public class OrderServiceImpl implements OrderService{
 		return orderMapper.findByOid(oid);
 	}
 	
+	public List<OrderItem> getOrderItems(int oid){
+		
+		return orderMapper.getOrderItems(oid);
+	}
+	
 }
