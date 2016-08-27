@@ -48,4 +48,8 @@
 		where oid = #{oid}
 	</select>
 	
+	<update id="update" parameterType="java.lang.String">
+		update orders set name = #{name},phone = #{phone},addr = #{addr} where oid = #{oid}
+	</update>
+	
 </mapper>

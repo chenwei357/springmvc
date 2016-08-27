@@ -86,15 +86,15 @@
 					<em id="promotion"></em>
 					商品金额: <strong id="effectivePrice">￥${orders.total}元</strong>
 				</div>
-			<form id="orderForm" action="./order_payOrder.action" method="post">
-				<input type="hidden" name="order.oid" value=""/>
+			<form id="orderForm" action="${pageContext.request.contextPath}/order/payOrder.action" method="post">
+				<input type="hidden" name="oid" value="${orders.oid}"/>
 				<div class="span24">
 					<p>
-							收货地址：<input name="orders.user.addr" type="text" value="${orders.user.addr}" style="width:350px" />
+							收货地址：<input name="addr" type="text" value="${orders.user.addr}" style="width:350px" />
 								<br />
-							收货人&nbsp;&nbsp;&nbsp;：<input name="orders.user.username" type="text" value="${orders.user.username}" style="width:150px" />
+							收货人&nbsp;&nbsp;&nbsp;：<input name="username" type="text" value="${orders.user.username}" style="width:150px" />
 								<br /> 
-							联系方式：<input name="orders.user.phone" type="text"value="${orders.user.phone}" style="width:150px" />
+							联系方式：<input name="phone" type="text"value="${orders.user.phone}" style="width:150px" />
 
 						</p>
 						<hr />

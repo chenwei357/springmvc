@@ -16,5 +16,7 @@ public interface OrderService {
 	public Order findByOid(int oid);
 
 	public List<OrderItem> getOrderItems(int oid);
+
+	public void update(int oid, String username, String phone, String addr);
 	
 }

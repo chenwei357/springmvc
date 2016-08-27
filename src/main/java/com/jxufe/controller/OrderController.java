@@ -18,6 +18,7 @@ import com.jxufe.entity.User;
 import com.jxufe.service.OrderService;
 import com.jxufe.service.ProductService;
 import com.jxufe.utils.Page;
+import com.jxufe.utils.PaymentUtil;
 
 @Controller
 @RequestMapping("order")
@@ -101,6 +102,17 @@ public class OrderController {
 		return "orderList";
 	}
 	
+	/**
+	* 方法名: findOrder
+	* 方法作用: 通过oid查找订单详情
+	* 创建人：Jxufe Chenwei
+	* 创建时间：2016年8月27日 上午11:42:22   
+	* @param @param request
+	* @param @param oid
+	* @param @return    
+	* 返回值类型： String    
+	* @throws
+	*/
 	@RequestMapping("findOrder")
 	public String findOrder(HttpServletRequest request,int oid){
 		Order order = orderService.findByOid(oid);
@@ -119,6 +131,50 @@ public class OrderController {
 		
 		request.setAttribute("orders", order);
 		return "order";
+	}
+	
+	@RequestMapping("/payOrder")
+	public String payOrder(HttpServletRequest request,int oid,String pd_FrpId // 支付通道编码:
+			,String username,String phone,String addr){
+		//1.修改订单
+		orderService.update(oid,username,phone,addr);
+		//2.付款
+		// 付款需要的参数:
+		String p0_Cmd = "Buy"; // 业务类型:
+		String p1_MerId = "10001126856";// 商户编号:
+		String p2_Order = oid + "";// 订单编号:
+		String p3_Amt = "0.01"; // 付款金额:
+		String p4_Cur = "CNY"; // 交易币种:
+		String p5_Pid = ""; // 商品名称:
+		String p6_Pcat = ""; // 商品种类:
+		String p7_Pdesc = ""; // 商品描述:
+		String p8_Url = "http://192.168.36.69:8080/springmvc/order/callback"; // 商户接收支付成功数据的地址:
+		String p9_SAF = ""; // 送货地址:
+		String pa_MP = ""; // 商户扩展信息:
+		String pr_NeedResponse = "1"; // 应答机制:
+		String keyValue = "69cl522AV6q613Ii4W6u8K6XuW8vM1N6bFgyv769220IuYe9u37N4y7rI4Pl"; // 秘钥
+		String hmac = PaymentUtil.buildHmac(p0_Cmd, p1_MerId, p2_Order, p3_Amt, p4_Cur, p5_Pid, p6_Pcat, p7_Pdesc,
+				p8_Url, p9_SAF, pa_MP, pd_FrpId, pr_NeedResponse, keyValue); // hmac
+		// 向易宝发送请求:
+		StringBuffer sb = new StringBuffer("https://www.yeepay.com/app-merchant-proxy/node?");
+		sb.append("p0_Cmd=").append(p0_Cmd).append("&");
+		sb.append("p1_MerId=").append(p1_MerId).append("&");
+		sb.append("p2_Order=").append(p2_Order).append("&");
+		sb.append("p3_Amt=").append(p3_Amt).append("&");
+		sb.append("p4_Cur=").append(p4_Cur).append("&");
+		sb.append("p5_Pid=").append(p5_Pid).append("&");
+		sb.append("p6_Pcat=").append(p6_Pcat).append("&");
+		sb.append("p7_Pdesc=").append(p7_Pdesc).append("&");
+		sb.append("p8_Url=").append(p8_Url).append("&");
+		sb.append("p9_SAF=").append(p9_SAF).append("&");
+		sb.append("pa_MP=").append(pa_MP).append("&");
+		sb.append("pd_FrpId=").append(pd_FrpId).append("&");
+		sb.append("pr_NeedResponse=").append(pr_NeedResponse).append("&");
+		sb.append("hmac=").append(hmac);
+
+		// 重定向:向易宝出发:
+		return "redirect:" + sb.toString();
+		
 	}
 	
 }

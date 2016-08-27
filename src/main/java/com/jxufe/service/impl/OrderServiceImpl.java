@@ -87,5 +87,21 @@ public class OrderServiceImpl implements OrderService{
 		
 		return orderMapper.getOrderItems(oid);
 	}
+
+	/**
+	* 方法名: update
+	* 方法作用: 更新订单中的收货人信息
+	* 创建人:Chenwei
+	* 创建时间：2016年8月27日 上午11:57:13   
+	* @param oid
+	* @param name
+	* @param phone
+	* @param addr
+	* @see com.jxufe.service.OrderService#update(int, java.lang.String, java.lang.String, java.lang.String) 
+	*/
+	public void update(int oid, String username, String phone, String addr) {
+		
+		orderMapper.update(oid,username,phone,addr);
+	}
 	
 }
