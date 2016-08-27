@@ -13,5 +13,6 @@ public interface OrderMapper {
 	public List<Order> findPageByUid(int uid, int begin, int count);
 	public Order findByOid(int oid);
 	public List<OrderItem> getOrderItems(int oid);
-	public void update(int oid, String username, String phone, String addr);
+	public void update(String oid, String username, String phone, String addr);
+	public void updateState(String oid);
 }

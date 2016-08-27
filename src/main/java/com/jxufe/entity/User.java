@@ -3,6 +3,7 @@ package com.jxufe.entity;
 import java.io.Serializable;
 
 //用户
+@SuppressWarnings("serial")
 public class User implements Serializable{
 
 	private int uid;

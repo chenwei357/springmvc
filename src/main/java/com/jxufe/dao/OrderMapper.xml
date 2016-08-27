@@ -39,7 +39,7 @@
 		where uid = #{0} limit #{1},#{2}
 	</select>
 	
-	<select id="t" parameterType="int" resultType="OrdersItem">
+	<select id="getOrderItems" parameterType="int" resultType="OrdersItem">
 		select itemid itemId,count,subtotal,pid,oid from orderitem where oid = #{oid}
 	</select>
 	
@@ -49,7 +49,11 @@
 	</select>
 	
 	<update id="update" parameterType="java.lang.String">
-		update orders set name = #{name},phone = #{phone},addr = #{addr} where oid = #{oid}
+		update orders set name = #{1},phone = #{2},addr = #{3} where oid = #{0}
+	</update>
+	
+	<update id="updateState" parameterType="java.lang.String">
+		update orders set state = 2 where oid = #{oid}
 	</update>
 	
 </mapper>

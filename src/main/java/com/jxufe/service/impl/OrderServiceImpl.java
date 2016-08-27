@@ -99,9 +99,22 @@ public class OrderServiceImpl implements OrderService{
 	* @param addr
 	* @see com.jxufe.service.OrderService#update(int, java.lang.String, java.lang.String, java.lang.String) 
 	*/
-	public void update(int oid, String username, String phone, String addr) {
+	public void update(String oid, String username, String phone, String addr) {
 		
 		orderMapper.update(oid,username,phone,addr);
+	}
+
+	
+	/**
+	* 方法名: updateState
+	* 方法作用: 通过oid修改订单状态
+	* 创建人:Chenwei
+	* 创建时间：2016年8月27日 下午3:36:54   
+	* @param oid
+	* @see com.jxufe.service.OrderService#updateState(java.lang.String) 
+	*/
+	public void updateState(String oid) {
+		orderMapper.updateState(oid);
 	}
 	
 }

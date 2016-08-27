@@ -133,11 +133,27 @@ public class OrderController {
 		return "order";
 	}
 	
+	/**
+	* 方法名: payOrder
+	* 方法作用: 更新orders表中的信息,并付款
+	* 创建人：Jxufe Chenwei
+	* 创建时间：2016年8月27日 下午3:21:52   
+	* @param @param request
+	* @param @param oid
+	* @param @param pd_FrpId
+	* @param @param username
+	* @param @param phone
+	* @param @param addr
+	* @param @return    
+	* 返回值类型： String    
+	* @throws
+	*/
 	@RequestMapping("/payOrder")
 	public String payOrder(HttpServletRequest request,int oid,String pd_FrpId // 支付通道编码:
 			,String username,String phone,String addr){
 		//1.修改订单
-		orderService.update(oid,username,phone,addr);
+		String oid2 = String.valueOf(oid);
+		orderService.update(oid2,username,phone,addr);
 		//2.付款
 		// 付款需要的参数:
 		String p0_Cmd = "Buy"; // 业务类型:
@@ -148,7 +164,7 @@ public class OrderController {
 		String p5_Pid = ""; // 商品名称:
 		String p6_Pcat = ""; // 商品种类:
 		String p7_Pdesc = ""; // 商品描述:
-		String p8_Url = "http://192.168.36.69:8080/springmvc/order/callback"; // 商户接收支付成功数据的地址:
+		String p8_Url = "http://localhost:8080/springmvc/order/callback"; // 商户接收支付成功数据的地址:
 		String p9_SAF = ""; // 送货地址:
 		String pa_MP = ""; // 商户扩展信息:
 		String pr_NeedResponse = "1"; // 应答机制:
@@ -175,6 +191,25 @@ public class OrderController {
 		// 重定向:向易宝出发:
 		return "redirect:" + sb.toString();
 		
+	}
+	
+	/**
+	* 方法名: callBack
+	* 方法作用: 支付成功后跳转到全局消息显示页面
+	* 创建人：Jxufe Chenwei
+	* 创建时间：2016年8月27日 下午3:52:21   
+	* @param @param request
+	* @param @return    
+	* 返回值类型： String    
+	* @throws
+	*/
+	@RequestMapping("/callback")
+	public String callBack(HttpServletRequest request){
+		// 修改订单的状态:
+		orderService.updateState(request.getParameter("r6_Order"));
+		request.setAttribute("msg", "支付成功!订单编号为: "+request.getParameter("r6_Order") +",付款金额为: "+request.getParameter("r3_Aamt")+"");
+		System.out.println("支付成功!订单编号为: "+request.getParameter("r6_Order") +",付款金额为: "+request.getParameter("r3_Amt")+"");
+		return "msg";
 	}
 	
 }
