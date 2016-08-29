@@ -59,7 +59,7 @@ public class OrderController {
 			orderItem.setCount(cartItem.getCount());
 			orderItem.setSubtotal(cartItem.getSubtotal());
 			orderItem.setProduct(cartItem.getProduct());
-			orderItem.setOid(order.getOid());
+			orderItem.setOrder(order);
 			
 			order.getOrderItems().add(orderItem);
 		}

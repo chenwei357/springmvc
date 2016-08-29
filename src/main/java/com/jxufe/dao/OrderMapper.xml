@@ -36,7 +36,7 @@
 	
 	<select id="findPageByUid" parameterType="int" resultMap="OrderMap">
 		select oid,total,order_time orderTime,state,name,phone,addr from orders
-		where uid = #{0} limit #{1},#{2}
+		where uid = #{0} order by order_time limit #{1},#{2}
 	</select>
 	
 	<select id="getOrderItems" parameterType="int" resultType="OrdersItem">

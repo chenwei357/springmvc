@@ -13,6 +13,7 @@
 	
 	<select id="findById" parameterType="int" resultType="Product">
 		select pid,pname,market_price marketPrice,shop_price shopPrice,image,pdesc,is_hot isHot,pdate,csid from product where pid = #{pid}
+		order by pid
 	</select>
 	
 	<!-- 通过cid找到总记录数 -->

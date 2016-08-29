@@ -9,7 +9,14 @@ public class OrderItem {
 	private int pid;
 	private Product product;
 	private int  oid;
+	private Order order;
 	
+	public Order getOrder() {
+		return order;
+	}
+	public void setOrder(Order order) {
+		this.order = order;
+	}
 	public int getPid() {
 		return pid;
 	}
