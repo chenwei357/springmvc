@@ -25,7 +25,7 @@ public class testUser {
 	}
 	@Test
 	public void testMD5(){
-		String message = "123456";
+		String message = "admin";
 		System.out.println(MD5Utils.md5(message));
 	}
 	
