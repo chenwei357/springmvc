@@ -53,8 +53,8 @@
     </error-page>
     <error-page>
        <error-code>500</error-code>
-       <location>/404.jsp</location>
-       <!-- 表示当系统发生500也就是操作异常错误的时候，页面跳转到error.jsp页面。 -->
+       <location>/500.jsp</location>
+       <!-- 表示当系统发生500也就是操作异常错误的时候，页面跳转到500.jsp页面。 -->
     </error-page>
   
 </web-app>
