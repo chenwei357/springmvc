@@ -70,8 +70,8 @@ public class MailUtils {
 			message.setSubject("来自购物商城官方激活邮件");
 			// 设置邮件正文:
 			message.setContent(
-					"<h1>购物商城官方激活邮件!点下面链接完成激活操作!</h1><h3><a href='http://192.169.31.13:8080/springmvc/user/active?code="
-							+ code + "'>http://192.169.31.13:8080/springmvc/user/active?code=" + code + "</a></h3>",
+					"<h1>购物商城官方激活邮件!点下面链接完成激活操作!</h1><h3><a href='http://127.0.0.1:8080/springmvc/user/active?code="
+							+ code + "'>http://127.0.0.1:8080/springmvc/user/active?code=" + code + "</a></h3>",
 					"text/html;charset=UTF-8");
 			// 3.发送邮件:920791352@qq.com
 			//163邮箱：	Transport.send(message);
